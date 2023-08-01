@@ -17,7 +17,7 @@ ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + '/dist/speak-spectrum'));
+// app.use(express.static(__dirname + '/dist/speak-spectrum'));
 app.use(cors());
 
 const storage = multer.memoryStorage(); // Store the video in memory
@@ -348,9 +348,9 @@ app.get('/analyzeTalkTime/:videoId', async (req, res) => {
     }
 });
 
-app.use("/*", (req, res) => {
-    res.sendFile(__dirname + "/dist/speak-spectrum/index.html")
-})
+// app.use("/*", (req, res) => {
+//     res.sendFile(__dirname + "/dist/speak-spectrum/index.html")
+// })
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
