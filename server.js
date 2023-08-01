@@ -52,15 +52,15 @@ app.post('/uploadVideo', upload.single('video'), async (req, res) => {
                 
                 // Save the video and audio to the database
                 const values = [inputVideoBuffer, audioBuffer];
-                const queryText = 'INSERT INTO videos(video, audio) VALUES($1, $2) RETURNING id';
+                // const queryText = 'INSERT INTO videos(video, audio) VALUES($1, $2) RETURNING id';
 
-                const dbResponse = await pool.query(queryText, values);
+                // const dbResponse = await pool.query(queryText, values);
 
-                if (dbResponse.rows && dbResponse.rows[0]) {
-                    res.send({ videoId: dbResponse.rows[0].id });
-                } else {
-                    res.status(500).send('Error saving video and audio');
-                }
+                // if (dbResponse.rows && dbResponse.rows[0]) {
+                //     res.send({ videoId: dbResponse.rows[0].id });
+                // } else {
+                //     res.status(500).send('Error saving video and audio');
+                // }
 
                 // Optionally delete the temporary audio file from the file system if not needed anymore
                 await fileSystem.unlink(audioOutput);
@@ -162,13 +162,13 @@ async function waitFileToBeWritten(filePath) {
 
 app.get('/getTranscript/:videoId', async (req, res) => {
     const videoId = req.params.videoId;
-    const queryText = 'SELECT audio FROM public.videos WHERE id=$1';
+    // const queryText = 'SELECT audio FROM public.videos WHERE id=$1';
     const values = [videoId];
 
-    const dbResponse = await pool.query(queryText, values);
-    if (!dbResponse.rows || !dbResponse.rows[0]) {
-        return res.status(404).send('No audio found for the given videoId');
-    }
+    // const dbResponse = await pool.query(queryText, values);
+    // if (!dbResponse.rows || !dbResponse.rows[0]) {
+    //     return res.status(404).send('No audio found for the given videoId');
+    // }
     console.log("1")
     const audioBuffer = dbResponse.rows[0].audio;
     console.log("2")
@@ -250,13 +250,13 @@ app.get('/getTranscript/:videoId', async (req, res) => {
 
 app.get('/analyzeSentiment/:videoId', async (req, res) => {
     const videoId = req.params.videoId;
-    const queryText = 'SELECT transcript FROM public.videos WHERE id=$1';
+    // const queryText = 'SELECT transcript FROM public.videos WHERE id=$1';
     const values = [videoId];
 
-    const dbResponse = await pool.query(queryText, values);
-    if (!dbResponse.rows || !dbResponse.rows[0]) {
-        return res.status(404).send('No transcript found for the given videoId');
-    }
+    // const dbResponse = await pool.query(queryText, values);
+    // if (!dbResponse.rows || !dbResponse.rows[0]) {
+    //     return res.status(404).send('No transcript found for the given videoId');
+    // }
 
     let transcript = dbResponse.rows[0].transcript;
     const textAnalyticsEndpoint = process.env.TEXT_ANALYTICS_ENDPOINT;
@@ -288,13 +288,13 @@ app.get('/analyzeSentiment/:videoId', async (req, res) => {
 
 app.get('/analyzeTalkTime/:videoId', async (req, res) => {
     const videoId = req.params.videoId;
-    const queryText = 'SELECT video FROM videos WHERE id=$1';
+    // const queryText = 'SELECT video FROM videos WHERE id=$1';
     const values = [videoId];
 
-    const dbResponse = await pool.query(queryText, values);
-    if (!dbResponse.rows || !dbResponse.rows[0]) {
-        return res.status(404).send('No video found for the given videoId');
-    }
+    // const dbResponse = await pool.query(queryText, values);
+    // if (!dbResponse.rows || !dbResponse.rows[0]) {
+    //     return res.status(404).send('No video found for the given videoId');
+    // }
 
     const videoBuffer = dbResponse.rows[0].video;
 
