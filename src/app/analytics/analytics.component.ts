@@ -26,7 +26,7 @@ export class AnalyticsComponent implements OnInit {
   }
 
   getTextAnalytics() {
-    this.http.get<TextAnalyticsResponse>(`https://speakspectrum-4e6f630517e5.herokuapp.com/analyzeSentiment/${this.videoId}`, {}).subscribe(
+    this.http.get<TextAnalyticsResponse>(`https://speakspectum.onrender.com/analyzeSentiment/${this.videoId}`, {}).subscribe(
       data => {
         console.log(data)
         this.analyticsOutput = data;
@@ -38,7 +38,7 @@ export class AnalyticsComponent implements OnInit {
   }
 
   getVideoAnalytics() {
-    this.http.get<VideoAnalyticsResponse>(`https://speakspectrum-4e6f630517e5.herokuapp.com/analyzeTalkTime/${this.videoId}`, {}).subscribe(
+    this.http.get<VideoAnalyticsResponse>(`https://speakspectum.onrender.com/analyzeTalkTime/${this.videoId}`, {}).subscribe(
       data => {
         this.analyticsOutput = data.videoAnalyticsOutput;
       },

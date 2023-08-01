@@ -25,11 +25,11 @@ export class TranscriptComponent {
       formData.append('video', this.selectedFile);
   } 
   
-    this.http.post<any>('https://speakspectrum-4e6f630517e5.herokuapp.com/uploadVideo', formData).subscribe(
+    this.http.post<any>('https://speakspectum.onrender.com/uploadVideo', formData).subscribe(
       response => {
         const videoId = response.videoId;
         this.videoService.videoId = videoId;
-        this.http.get<any>(`https://speakspectrum-4e6f630517e5.herokuapp.com/getTranscript/${videoId}`, {}).subscribe(
+        this.http.get<any>(`https://speakspectum.onrender.com/getTranscript/${videoId}`, {}).subscribe(
           data => {
             let result = JSON.parse(data.privJson)
             console.log(result)
